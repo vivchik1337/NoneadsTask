@@ -1,10 +1,13 @@
 package com.noneadstask.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by vivchick on 04.09.2018.
  */
 
-public class Person {
+public class  Person {
     private String id;
     private String firstname;
     private String lastname;
@@ -22,6 +25,17 @@ public class Person {
         this.placeOfWork = placeOfWork;
         this.position = position;
         this.linkPDF = linkPDF;
+    }
+
+    public static Person parseJSON(JSONObject jItem) throws JSONException {
+        String id = jItem.getString("id");
+        String firstname = jItem.getString("firstname");
+        String lastname = jItem.getString("lastname");
+        String placeOfWork = jItem.getString("placeOfWork");
+        String position = jItem.getString("position");
+        String linkPDF = jItem.getString("linkPDF");
+
+        return new Person(id, firstname, lastname, placeOfWork, position, linkPDF);
     }
 
     public String getId() {

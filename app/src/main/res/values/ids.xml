@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by viktord (viktor.derk@gmail.com) on 19/6/2018.
+  -->
+<resources>
+
+    <!-- Adapter IDS-->
+    <item name="myId0" type="id"/>
+    <item name="myId1" type="id"/>
+
+</resources>
