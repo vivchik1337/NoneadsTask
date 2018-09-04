@@ -3,9 +3,7 @@ package com.noneadstask;
 import android.app.Application;
 
 import com.noneadstask.util.Log;
-/*
- * Created by viktord (viktor.derk@gmail.com) on 19/6/2018.
- */
+
 
 public class AppController extends Application {
 
