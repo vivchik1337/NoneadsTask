@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">NoneadsTask</string>
+
+    <!-- REST API -->
+    <string name="HOST_URL">https://public-api.nazk.gov.ua</string>
+
+    <!-- Network -->
+    <string name="NetworkErr">Sorry we had an issue. Please try later.</string>
+    <string name="ServerErr">Server Error! Try again later</string>
+
+    <!-- List Fragment -->
+    <string name="editSearchHint">Search</string>
+    <string name="btnReload">Reload</string>
+    <string name="ListEmptyTitle">List is empty</string>
 </resources>
