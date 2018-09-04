@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFF</color>
+
+    <!-- Main application colors -->
+    <color name="DefBgColor">#F5F5F6</color>
+    <color name="DividerColor">@color/DefBgColor</color>
+
+    <!--Text colors -->
+    <color name="HintTextColor">#D8D8D8</color>
+    <color name="DefTextColor">#798086</color>
+    <color name="SmallTextColor">@color/DefTextColor</color>
+    <color name="SubTitleTextColor">@color/TitleTextColor</color>
+    <color name="TitleTextColor">#424242</color>
+
 </resources>

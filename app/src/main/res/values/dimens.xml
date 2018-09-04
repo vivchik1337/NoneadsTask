@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ScreenPadding">16dp</dimen>
+
+    <!-- Button sizes for tablets -->
+    <dimen name="btnMargin">55dp</dimen>
+    <dimen name="btnHeight">43dp</dimen>
+
+    <!-- Text sizes for mobile -->
+    <dimen name="SmallTextSize">12sp</dimen>
+    <dimen name="DefTextSize">13sp</dimen>
+    <dimen name="SubTitleTextSize">16sp</dimen>
+    <dimen name="TitleTextSize">18sp</dimen>
+</resources>
