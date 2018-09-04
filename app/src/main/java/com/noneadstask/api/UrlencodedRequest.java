@@ -7,10 +7,6 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * Created by viktord (viktor.derk@gmail.com) on 19/6/2018.
- */
-
 public class UrlencodedRequest extends StringRequest {
 
     Map<String, String> params = new HashMap<String, String>();

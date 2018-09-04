@@ -16,10 +16,6 @@ import java.util.UUID;
 
 import butterknife.Unbinder;
 
-/*
- * Created by viktord (viktor.derk@gmail.com) on 19/6/2018.
- */
-
 public abstract class BaseFragment extends Fragment {
 
     public static final String TAG = BaseFragment.class.getSimpleName();
