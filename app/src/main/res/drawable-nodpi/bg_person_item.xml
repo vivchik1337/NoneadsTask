@@ -1,0 +1,11 @@
+<!--
+  ~ Created by viktord (viktor.derk@gmail.com) on 25/6/2018.
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/DefItemBgColor" />
+
+    <corners android:radius="9dp" />
+
+</shape>

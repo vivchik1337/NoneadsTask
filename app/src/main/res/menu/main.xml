@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by viktord (viktor.derk@gmail.com) on 25/6/2018.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/favorites"
+        android:orderInCategory="50"
+        android:title="Favorites"
+        android:icon="@drawable/ic_menu_star"
+        app:showAsAction="always" />
+</menu>

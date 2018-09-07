@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by viktord (viktor.derk@gmail.com) on 19/6/2018.
   -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,21 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginBottom="@dimen/ScreenPadding"
-            android:background="@drawable/edit_main_bg">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:src="@mipmap/ic_search"/>
+            android:background="@drawable/bg_edit_main">
 
             <EditText
                 android:id="@+id/editSearch"
                 style="@style/DefText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@null"
@@ -45,7 +36,21 @@
                 android:hint="@string/editSearchHint"
                 android:imeOptions="actionSearch"
                 android:padding="0dp"
-                android:singleLine="true"/>
+                android:singleLine="true" />
+
+            <FrameLayout
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="13dp"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/HintTextColor" />
+            </FrameLayout>
         </LinearLayout>
 
     </LinearLayout>
@@ -87,8 +92,7 @@
                     android:paddingTop="1dp"
                     android:scrollbars="none"
                     android:visibility="visible"
-                    tools:listitem="@layout/item_person">
-                </ListView>
+                    tools:listitem="@layout/item_person"></ListView>
             </android.support.v4.widget.SwipeRefreshLayout>
 
             <Button
@@ -96,13 +100,13 @@
                 style="@style/TitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_main_bg"
+                android:background="@drawable/bg_btn_main"
                 android:paddingLeft="@dimen/btnMargin"
                 android:paddingRight="@dimen/btnMargin"
                 android:text="@string/btnReload"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/listEmpty"
@@ -110,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ListEmptyTitle"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </FrameLayout>
     </LinearLayout>

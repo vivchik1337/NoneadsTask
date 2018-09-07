@@ -6,12 +6,14 @@
     <color name="white">#FFF</color>
 
     <!-- Main application colors -->
-    <color name="DefBgColor">#F5F5F6</color>
+    <color name="DefBgColor">#1f2335</color>
+    <color name="DefItemBgColor">#283446</color>
     <color name="DividerColor">@color/DefBgColor</color>
+    <color name="DefBrighColor">#3be5ff</color>
 
     <!--Text colors -->
     <color name="HintTextColor">#D8D8D8</color>
-    <color name="DefTextColor">#798086</color>
+    <color name="DefTextColor">#7c8389</color>
     <color name="SmallTextColor">@color/DefTextColor</color>
     <color name="SubTitleTextColor">@color/TitleTextColor</color>
     <color name="TitleTextColor">#424242</color>
