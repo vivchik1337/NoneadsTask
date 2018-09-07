@@ -132,7 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             startActivity(myIntent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(this, "No application can handle this request."
-                                 + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+                    + " Please install a webbrowser", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

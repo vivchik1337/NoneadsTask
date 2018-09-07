@@ -1,13 +1,18 @@
 package com.noneadstask.model;
 
+import com.noneadstask.api.BaseRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by vivchick on 04.09.2018.
  */
 
-public class  Person {
+public class Person {
     private String id;
     private String firstname;
     private String lastname;
@@ -29,11 +34,18 @@ public class  Person {
 
     public static Person parseJSON(JSONObject jItem) throws JSONException {
         String id = jItem.getString("id");
-        String firstname = jItem.getString("firstname");
-        String lastname = jItem.getString("lastname");
-        String placeOfWork = jItem.getString("placeOfWork");
-        String position = jItem.getString("position");
-        String linkPDF = jItem.getString("linkPDF");
+        String firstname = BaseRequest.tryGetStr(jItem, "firstname");
+        String lastname = BaseRequest.tryGetStr(jItem, "lastname");
+        String placeOfWork = BaseRequest.tryGetStr(jItem, "placeOfWork");
+        String position = BaseRequest.tryGetStr(jItem, "position");
+        String linkPDF = BaseRequest.tryGetStr(jItem, "linkPDF");
+        if (null != linkPDF) {
+            try {
+                linkPDF = URLEncoder.encode(linkPDF, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
 
         return new Person(id, firstname, lastname, placeOfWork, position, linkPDF);
     }

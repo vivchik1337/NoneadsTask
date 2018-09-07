@@ -26,6 +26,7 @@ public class BaseRequest implements Response.ErrorListener, Response.Listener<St
     public static String SUCCESS = "success";
     public static String MSG = "msg";
     public static String DATA = "data";
+    public static String ITEMS = "items";
 
     private String TAG;
     private Context context;
