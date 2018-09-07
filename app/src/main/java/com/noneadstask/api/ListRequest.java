@@ -56,10 +56,10 @@ public class ListRequest implements Response.Listener<String> {
         JSONObject jo;
         try {
             jo = new JSONObject(response);
-            JSONArray jData = jo.getJSONArray(BaseRequest.DATA);
+            JSONArray jsonData = jo.getJSONArray(BaseRequest.ITEMS);
             ArrayList<Person> list = new ArrayList<>();
-            for (int i = 0; i < jData.length(); i++) {
-                JSONObject jItem = jData.getJSONObject(i);
+            for (int i = 0; i < jsonData.length(); i++) {
+                JSONObject jItem = jsonData.getJSONObject(i);
                 Person item = Person.parseJSON(jItem);
                 list.add(item);
             }

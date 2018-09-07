@@ -1,6 +1,7 @@
 package com.noneadstask.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,10 @@ import com.noneadstask.model.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ListAdapter extends BaseAdapter {
 
     public static String TAG = ListAdapter.class.getSimpleName();
@@ -25,10 +30,26 @@ public class ListAdapter extends BaseAdapter {
 
     private List<Person> list = new ArrayList<Person>();
 
-    public class ViewHolder {
-        public TextView nameTextView;
-        public TextView infoTextView;
-        public ImageView imgImageView;
+    public class PersonViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.nameTextView)
+        TextView nameTextView;
+        @BindView(R.id.placeOfWorkTextView)
+        TextView placeOfWorkTextView;
+        @BindView(R.id.positionTextView)
+        TextView positionTextView;
+
+        @BindView(R.id.addToFavorite)
+        ImageView addToFavorite;
+
+        public PersonViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.addToFavorite)
+        public void addToFavorite(View view) {
+            addToFavorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+        }
     }
 
     public ListAdapter(Context context, ListClicks listClicks, List<Person> list) {
@@ -60,28 +81,27 @@ public class ListAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        PersonViewHolder holder = null;
 
 		/*
          * Create or restore ViewHolder
 		 */
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_person, parent, false);
-            holder = new ViewHolder();
-            holder.nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
-            holder.infoTextView = (TextView) convertView.findViewById(R.id.infoTextView);
-            holder.imgImageView = (ImageView) convertView.findViewById(R.id.imgImageView);
+            holder = new PersonViewHolder(convertView);
+
             convertView.setTag(R.id.myId0, holder);
         } else {
-            holder = (ViewHolder) convertView.getTag(R.id.myId0);
+            holder = (PersonViewHolder) convertView.getTag(R.id.myId0);
         }
 
 		/*
          * Set item data
 		 */
         Person item = list.get(position);
-        holder.nameTextView.setText(item.getFirstname());
-        holder.infoTextView.setText(item.getLastname());
+        holder.nameTextView.setText(item.getLastname() + " " + item.getFirstname());
+        holder.placeOfWorkTextView.setText(item.getPlaceOfWork());
+        holder.positionTextView.setText(item.getPosition());
         /*
          * Set actions
 		 */

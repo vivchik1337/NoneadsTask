@@ -2,7 +2,6 @@ package com.noneadstask.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import com.noneadstask.adapter.ListClicks;
 import com.noneadstask.api.ApiSingleton;
 import com.noneadstask.api.ListRequest;
 import com.noneadstask.model.Person;
-import com.noneadstask.util.SearchTextWatcher;
 
 import java.util.List;
 
@@ -31,14 +29,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ListFragment extends BaseFragment implements ListClicks, SwipeRefreshLayout.OnRefreshListener {
+    public static ListFragment listFragment;
 
-    public static ListFragment getInstance(boolean isMyPets) {
-        ListFragment listFragment = new ListFragment();
-        if (isMyPets) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("isMyPets", isMyPets);
-            listFragment.setArguments(bundle);
-        }
+    public static ListFragment getInstance() {
+        if (null == listFragment) listFragment = new ListFragment();
         return listFragment;
     }
 
@@ -54,9 +48,7 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.listEmpty)
     public View listEmpty;
-
-    private boolean isMyPets = false;
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
@@ -74,18 +66,7 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
             }
         });
 
-        editSearch.addTextChangedListener(new SearchTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                waitQuery = s.toString().trim();
-            }
-        });
-
         initSwipeRefresh();
-
-        if (getArguments() != null) {
-            isMyPets = getArguments().getBoolean("isMyPets");
-        }
 
         if (savedInstanceState != null) {
             query = savedInstanceState.getString("query");
@@ -98,33 +79,7 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
         }
         fetchList(true, query);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isRun) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (!isLoad && !waitQuery.equals(query)) {
-                        query = waitQuery;
-                        mainActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                fetchList(false, query);
-                            }
-                        });
-                    }
-                }
-            }
-        }).start();
-
-        if (isMyPets) {
-            mainActivity.toolbar.setTitle("Пошук");
-        } else {
-            mainActivity.toolbar.setTitle(R.string.app_name);
-        }
+        mainActivity.toolbar.setTitle("Пошук");
 
         return view;
     }
@@ -163,7 +118,6 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
     private List<Person> response;
     private ListAdapter adapter;
 
-    private boolean isRun = true;
     private boolean isLoad = false;
 
     private String query = "";
@@ -180,23 +134,17 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
         adapter = new ListAdapter(context, this, response);
         listView.setAdapter(adapter);
     }
-/*
-    @Override
-    public void onClick(Person person) {
-        Log.d(TAG, "onClick Pet");
-        hideKeyboard(editSearch);
-        //TODO make correct check
-        if (1>2) {
-            BaseFragment.openFragment(fragmentManager, R.id.frameLayout, PetAddEditFragment.getInstance(pet), true);
-        } else {
-            BaseFragment.openFragment(fragmentManager, R.id.frameLayout, PetFragment.getInstance(pet), true);
-        }
-    }*/
 
     @OnClick(R.id.btnReload)
     public void btnReload() {
         Log.d(TAG, "btnReload");
         fetchList(true, editSearch.getText().toString().trim());
+    }
+
+    @OnClick(R.id.btnSearch)
+    public void btnSearch() {
+        Log.d(TAG, "btnSearch");
+        fetchList(false, editSearch.getText().toString().trim());
     }
 
     private void initSwipeRefresh() {
