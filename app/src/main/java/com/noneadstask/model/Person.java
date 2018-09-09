@@ -5,24 +5,25 @@ import com.noneadstask.api.BaseRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import io.realm.RealmObject;
 
 /**
  * Created by vivchick on 04.09.2018.
  */
 
-public class Person {
+public class Person extends RealmObject {
     private String id;
     private String firstname;
     private String lastname;
     private String placeOfWork;
     private String position;
     private String linkPDF;
+    private String comment;
 
     public Person() {
     }
 
+    //constructor without comment
     public Person(String id, String firstname, String lastname, String placeOfWork, String position, String linkPDF) {
         this.id = id;
         this.firstname = firstname;
@@ -32,6 +33,19 @@ public class Person {
         this.linkPDF = linkPDF;
     }
 
+    //constructor with comment
+    public Person(String id, String firstname, String lastname, String placeOfWork, String position,
+                  String linkPDF, String comment) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.placeOfWork = placeOfWork;
+        this.position = position;
+        this.linkPDF = linkPDF;
+        this.comment = comment;
+    }
+
+
     public static Person parseJSON(JSONObject jItem) throws JSONException {
         String id = jItem.getString("id");
         String firstname = BaseRequest.tryGetStr(jItem, "firstname");
@@ -39,13 +53,6 @@ public class Person {
         String placeOfWork = BaseRequest.tryGetStr(jItem, "placeOfWork");
         String position = BaseRequest.tryGetStr(jItem, "position");
         String linkPDF = BaseRequest.tryGetStr(jItem, "linkPDF");
-        if (null != linkPDF) {
-            try {
-                linkPDF = URLEncoder.encode(linkPDF, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
 
         return new Person(id, firstname, lastname, placeOfWork, position, linkPDF);
     }

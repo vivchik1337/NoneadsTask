@@ -13,14 +13,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.noneadstask.R;
 import com.noneadstask.adapter.ListAdapter;
-import com.noneadstask.adapter.ListClicks;
+import com.noneadstask.adapter.MainList;
 import com.noneadstask.api.ApiSingleton;
 import com.noneadstask.api.ListRequest;
 import com.noneadstask.model.Person;
+import com.noneadstask.presenter.ListPresenter;
 
 import java.util.List;
 
@@ -28,7 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListFragment extends BaseFragment implements ListClicks, SwipeRefreshLayout.OnRefreshListener {
+public class ListFragment extends BaseFragment implements MainList.UIview,
+        SwipeRefreshLayout.OnRefreshListener {
     public static ListFragment listFragment;
 
     public static ListFragment getInstance() {
@@ -48,7 +48,10 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.listEmpty)
     public View listEmpty;
-    
+
+
+    ListPresenter presenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
@@ -56,10 +59,13 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        presenter = new ListPresenter(this, getActivity().getApplicationContext());
+
         editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    presenter.refreshList(editSearch.getText().toString().trim());
                     hideKeyboard(editSearch);
                 }
                 return false;
@@ -72,79 +78,37 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
             query = savedInstanceState.getString("query");
             editSearch.setText(query);
         }
-        if (query.isEmpty()) {
-            listView.setVisibility(View.INVISIBLE);
-            btnReload.setVisibility(View.INVISIBLE);
-            listEmpty.setVisibility(View.INVISIBLE);
-        }
-        fetchList(true, query);
+        presenter.refreshList(query);
 
-        mainActivity.toolbar.setTitle("Пошук");
+        //mainActivity.toolbar.setTitle("Пошук");
 
         return view;
     }
-
-    private void fetchList(boolean isHideListView, String query) {
-        if (isHideListView) {
-            listView.setVisibility(View.INVISIBLE);
-        } else {
-            listView.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void refreshListStarted() {
         btnReload.setVisibility(View.INVISIBLE);
         listEmpty.setVisibility(View.INVISIBLE);
-        // showWaitDialog();
+
         isLoad = true;
         swipeRefreshLayout.setRefreshing(true);
-        new ListRequest(context, null, query, new Response.Listener<List<Person>>() {
-            @Override
-            public void onResponse(List<Person> response) {
-                isLoad = false;
-                swipeRefreshLayout.setRefreshing(false);
-                ListFragment.this.response = response;
-                initList();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                isLoad = false;
-                swipeRefreshLayout.setRefreshing(false);
-                listView.setVisibility(View.INVISIBLE);
-                btnReload.setVisibility(View.VISIBLE);
-                listEmpty.setVisibility(View.INVISIBLE);
-            }
-        });
     }
 
-    private List<Person> response;
     private ListAdapter adapter;
 
     private boolean isLoad = false;
 
     private String query = "";
-    private String waitQuery = "";
-
-    private void initList() {
-        listView.setVisibility(View.VISIBLE);
-        btnReload.setVisibility(View.INVISIBLE);
-        if (response.isEmpty()) {
-            listEmpty.setVisibility(View.VISIBLE);
-        } else {
-            listEmpty.setVisibility(View.INVISIBLE);
-        }
-        adapter = new ListAdapter(context, this, response);
-        listView.setAdapter(adapter);
-    }
 
     @OnClick(R.id.btnReload)
     public void btnReload() {
         Log.d(TAG, "btnReload");
-        fetchList(true, editSearch.getText().toString().trim());
+        presenter.refreshList(editSearch.getText().toString().trim());
     }
 
     @OnClick(R.id.btnSearch)
     public void btnSearch() {
         Log.d(TAG, "btnSearch");
-        fetchList(false, editSearch.getText().toString().trim());
+        presenter.refreshList(editSearch.getText().toString().trim());
     }
 
     private void initSwipeRefresh() {
@@ -177,17 +141,28 @@ public class ListFragment extends BaseFragment implements ListClicks, SwipeRefre
     }
 
     @Override
-    public void onFavoriteClick(Person person) {
+    public void refreshListFinished(List<Person> newList) {
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+
+        listView.setVisibility(View.VISIBLE);
+        btnReload.setVisibility(View.INVISIBLE);
+
+        adapter = new ListAdapter(context, newList, presenter);
+        listView.setAdapter(adapter);
+    }
+    @Override
+    public void fetchListErrorListener() {
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        listView.setVisibility(View.INVISIBLE);
+        btnReload.setVisibility(View.VISIBLE);
+        listEmpty.setVisibility(View.INVISIBLE);
 
     }
 
     @Override
-    public void onCommentClick(Person person) {
-
-    }
-
-    @Override
-    public void onSearch(String searchText) {
+    public void showFavoriteStatus() {
 
     }
 }

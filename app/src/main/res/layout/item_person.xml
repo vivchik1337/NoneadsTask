@@ -113,7 +113,7 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/addToFavorite1"
+                        android:id="@+id/openPDF"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"

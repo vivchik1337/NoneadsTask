@@ -1,7 +1,10 @@
 package com.noneadstask.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 
 import com.noneadstask.R;
 import com.noneadstask.model.Person;
+import com.noneadstask.presenter.ListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +28,11 @@ public class ListAdapter extends BaseAdapter {
     public static String TAG = ListAdapter.class.getSimpleName();
 
     private Context context;
-    private ListClicks listClicks;
-
     private LayoutInflater mInflater;
-
     private List<Person> list = new ArrayList<Person>();
+
+    private ListPresenter presenter;
+
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.nameTextView)
@@ -37,33 +41,54 @@ public class ListAdapter extends BaseAdapter {
         TextView placeOfWorkTextView;
         @BindView(R.id.positionTextView)
         TextView positionTextView;
-
         @BindView(R.id.addToFavorite)
         ImageView addToFavorite;
+        @BindView(R.id.openPDF)
+        ImageView openPDF;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            Log.d(TAG, "ViewHolder created");
         }
 
         @OnClick(R.id.addToFavorite)
         public void addToFavorite(View view) {
-            addToFavorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+
+            final int position = (Integer) view.getTag();
+            final Person item = list.get(position);
+
+            presenter.onAddToFavoriteClick(item);
+            setFavoriteStatus(true);
+            Log.d(TAG, "Item " + "0000 " + "added to favorite");
+        }
+
+        public void setFavoriteStatus(boolean isFavorite) {
+            if (isFavorite)
+                addToFavorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+            else
+                addToFavorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star));
+
+        }
+
+        @OnClick(R.id.openPDF)
+        public void openPDF(View view) {
+            Log.d(TAG, "pd");
+
+            final int position = (Integer) view.getTag();
+            final Person item = list.get(position);
+
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://docs.google.com/viewer?url=" + item.getLinkPDF()));
+            context.startActivity(browserIntent);
         }
     }
 
-    public ListAdapter(Context context, ListClicks listClicks, List<Person> list) {
-
+    public ListAdapter(Context context, List<Person> list, ListPresenter presenter) {
         this.context = context;
-        this.listClicks = listClicks;
         this.list = list;
-
+        this.presenter = presenter;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
 
-    public void setList(List<Person> list) {
-        this.list = list;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -80,10 +105,8 @@ public class ListAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-
         PersonViewHolder holder = null;
-
-		/*
+        /*
          * Create or restore ViewHolder
 		 */
         if (convertView == null) {
@@ -95,27 +118,28 @@ public class ListAdapter extends BaseAdapter {
             holder = (PersonViewHolder) convertView.getTag(R.id.myId0);
         }
 
-		/*
-         * Set item data
-		 */
+        setItemData(position, holder);
+        convertView.setTag(R.id.myId1, position);
+
+
+        return convertView;
+    }
+
+    /*
+     * Set item data
+	 */
+    public void setItemData(int position, PersonViewHolder holder) {
         Person item = list.get(position);
         holder.nameTextView.setText(item.getLastname() + " " + item.getFirstname());
         holder.placeOfWorkTextView.setText(item.getPlaceOfWork());
         holder.positionTextView.setText(item.getPosition());
-        /*
-         * Set actions
-		 */
-        convertView.setTag(R.id.myId1, position);
-        convertView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int pos = (Integer) v.getTag(R.id.myId1); // poz
-                Person selectedItem = list.get(pos);
-                if (listClicks != null) {
-                    listClicks.onCommentClick(selectedItem);
-                }
-            }
-        });
 
-        return convertView;
+        if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null"))
+            holder.openPDF.setTag(position);
+        else
+            holder.openPDF.setVisibility(View.GONE);
+
+        holder.addToFavorite.setTag(position);
+
     }
 }
