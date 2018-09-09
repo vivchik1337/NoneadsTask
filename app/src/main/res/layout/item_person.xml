@@ -34,6 +34,7 @@
                     android:gravity="left|top"
                     android:singleLine="true"
                     android:text="Иванов Иван Иванович"
+                    android:textColor="@color/HintTextColor"
                     android:textStyle="bold" />
 
 
@@ -47,6 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Место работы: "
+                        android:textColor="@color/HintTextColor"
                         android:textSize="13dp"
                         android:textStyle="bold" />
 
@@ -71,6 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Должность: "
+                        android:textColor="@color/HintTextColor"
                         android:textSize="13dp"
                         android:textStyle="bold" />
 
@@ -97,9 +100,9 @@
 
                     <ImageButton
                         android:id="@+id/addToFavorite"
-                        android:layout_gravity="center"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:background="@drawable/ic_star" />
                 </FrameLayout>
@@ -110,12 +113,13 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:layout_gravity="center"
                         android:id="@+id/addToFavorite1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:background="@drawable/ic_pdf" />
+                        android:background="@drawable/ic_pdf"
+                        android:tint="@color/HintTextColor" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>
