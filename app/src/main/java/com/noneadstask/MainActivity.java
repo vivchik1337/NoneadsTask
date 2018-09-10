@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.noneadstask.fragment.BaseFragment;
+import com.noneadstask.fragment.FavoritesListFragment;
 import com.noneadstask.fragment.ListFragment;
-import com.noneadstask.util.Toaster;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
         BaseFragment.openFragment(getSupportFragmentManager(), R.id.frameLayout, ListFragment.getInstance(), false);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
     }
 
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.favorites) {
-            Toaster.showToast(getApplicationContext(), "CLicked");
+            BaseFragment.openFragment(getSupportFragmentManager(), R.id.frameLayout, FavoritesListFragment.getInstance(), true);
             return true;
         }
 

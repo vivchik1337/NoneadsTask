@@ -15,4 +15,8 @@
 
     <string name="Loading">Loading…</string>
 
+    <!-- Favorites List Fragment -->
+    <string name="editCommentHint">Your comment</string>
+
+
 </resources>
