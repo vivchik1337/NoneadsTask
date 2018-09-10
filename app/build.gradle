@@ -35,6 +35,7 @@ dependencies {
     // SwipyRefreshLayout
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     //realm
-    compile 'io.realm:realm-android:0.87.4'
+    compile 'io.realm:realm-android:0.87.5'
+    annotationProcessor 'io.realm:realm-android:0.87.5'
 
 }

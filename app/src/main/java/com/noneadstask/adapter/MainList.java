@@ -17,7 +17,7 @@ public interface MainList {
     interface Presenter {
         void refreshList(String query);
         void onAddToFavoriteClick(Person person);
-        void onPDFclick();
+        void onPDFclick(Person person);
         void onDestroy();
     }
 

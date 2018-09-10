@@ -80,10 +80,12 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
         }
         presenter.refreshList(query);
 
-        //mainActivity.toolbar.setTitle("Пошук");
+        mainActivity.getSupportActionBar().setTitle("Search");
+        mainActivity.showAddMenuItem();
 
         return view;
     }
+
     @Override
     public void refreshListStarted() {
         btnReload.setVisibility(View.INVISIBLE);
@@ -151,6 +153,7 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
         adapter = new ListAdapter(context, newList, presenter);
         listView.setAdapter(adapter);
     }
+
     @Override
     public void fetchListErrorListener() {
         isLoad = false;

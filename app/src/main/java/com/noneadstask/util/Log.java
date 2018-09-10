@@ -5,6 +5,7 @@ public class Log {
     //in future that class give possibility to add logging into file
 
     public static void d(String TAG, String mess) {
+        if (mess == null) mess = "";
         android.util.Log.d(TAG, mess);
     }
 

@@ -104,4 +104,12 @@ public class Person extends RealmObject {
     public void setLinkPDF(String linkPDF) {
         this.linkPDF = linkPDF;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

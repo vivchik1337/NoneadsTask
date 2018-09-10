@@ -73,13 +73,11 @@ public class ListAdapter extends BaseAdapter {
 
         @OnClick(R.id.openPDF)
         public void openPDF(View view) {
-            Log.d(TAG, "pd");
+            Log.d(TAG, "openPDF");
 
             final int position = (Integer) view.getTag();
             final Person item = list.get(position);
-
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://docs.google.com/viewer?url=" + item.getLinkPDF()));
-            context.startActivity(browserIntent);
+            presenter.onPDFclick(item);
         }
     }
 

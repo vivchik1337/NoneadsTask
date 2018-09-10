@@ -1,6 +1,8 @@
 package com.noneadstask.presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.noneadstask.adapter.MainList;
@@ -38,16 +40,19 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
         repository.loadList(query, context, this);
     }
 
-    DBHelper dbHelper;
     @Override
     public void onAddToFavoriteClick(Person person) {
-    if(dbHelper == null)
-        dbHelper = new DBHelper(this);
     }
 
     @Override
-    public void onPDFclick() {
+    public void onPDFclick(Person person) {
+        //to open declaration with google disk
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://docs.google.com/viewer?url=" + person.getLinkPDF()));
 
+        //uncomment when need declaration downloading
+        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(person.getLinkPDF()));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(browserIntent);
     }
 
     @Override
