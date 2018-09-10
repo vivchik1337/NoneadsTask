@@ -11,12 +11,12 @@ public interface MainList {
         void fetchListErrorListener();
         void refreshListFinished(List<Person> newList);
         void refreshListStarted();
-        void showFavoriteStatus();
+        void setFavoriteStatus(int position, int resID);
     }
 
     interface Presenter {
         void refreshList(String query);
-        void onAddToFavoriteClick(Person person);
+        void onFavoriteClick(Person person, int position);
         void onPDFclick(Person person);
         void onDestroy();
     }

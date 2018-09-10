@@ -75,8 +75,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
 
-                <ListView
-                    android:id="@+id/listView"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="top|center"
@@ -93,7 +93,7 @@
                     android:paddingTop="1dp"
                     android:scrollbars="none"
                     android:visibility="visible"
-                    tools:listitem="@layout/item_person"></ListView>
+                    tools:listitem="@layout/item_person"></android.support.v7.widget.RecyclerView>
             </android.support.v4.widget.SwipeRefreshLayout>
 
             <Button

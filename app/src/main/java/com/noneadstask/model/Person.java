@@ -106,6 +106,7 @@ public class Person extends RealmObject {
     }
 
     public String getComment() {
+        if (null == comment) return "";
         return comment;
     }
 

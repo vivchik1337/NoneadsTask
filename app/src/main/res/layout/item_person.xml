@@ -99,7 +99,7 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/addToFavorite"
+                        android:id="@+id/favorite"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
