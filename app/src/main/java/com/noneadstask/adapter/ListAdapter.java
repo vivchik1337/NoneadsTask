@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class ListAdapter extends RecyclerView.Adapter {
 
@@ -28,7 +29,7 @@ public class ListAdapter extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater mInflater;
     private List<Person> list = new ArrayList<Person>();
-
+    private List<Person> favoritesList = new ArrayList<>();
     private ListPresenter presenter;
 
 
@@ -75,17 +76,24 @@ public class ListAdapter extends RecyclerView.Adapter {
     }
 
     RecyclerView recyclerView;
+    Realm realm;
 
-    public ListAdapter(Context context, List<Person> list, ListPresenter presenter, RecyclerView recyclerView) {
+    public ListAdapter(Context context, List<Person> list, ListPresenter presenter, RecyclerView recyclerView, Realm realm) {
         this.context = context;
         this.list = list;
         this.presenter = presenter;
         this.recyclerView = recyclerView;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        this.realm = realm;
+        favoritesList = realm.where(Person.class).findAll();
     }
 
     public void setFavoriteStatus(int position, int resID) {
-        ((PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position)).favorite.setBackground(context.getResources().getDrawable(resID));
+        PersonViewHolder holder = (PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+        if (null != holder)
+            holder.favorite.setBackground(context.getResources().getDrawable(resID));
+        //((PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position)).favorite.setBackground(context.getResources().getDrawable(resID));
 
     }
 
@@ -127,6 +135,13 @@ public class ListAdapter extends RecyclerView.Adapter {
         } else {
             holder.openPDF.setVisibility(View.GONE);
             holder.btnOpenPDF.setVisibility(View.GONE);
+        }
+
+        for (Person person : favoritesList) {
+            if (person.getId().equalsIgnoreCase(item.getId())) {
+                holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+            }
+
         }
 
         holder.favorite.setTag(position);

@@ -27,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class ListFragment extends BaseFragment implements MainList.UIview,
         SwipeRefreshLayout.OnRefreshListener {
@@ -50,8 +51,8 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
     @BindView(R.id.listEmpty)
     public View listEmpty;
 
-
     ListPresenter presenter;
+    Realm realm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
         unbinder = ButterKnife.bind(this, view);
 
         presenter = new ListPresenter(this, getActivity().getApplicationContext());
+
+        realm = Realm.getInstance(context);
 
         editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -161,7 +164,7 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ListAdapter(context, newList, presenter, recyclerView);
+        adapter = new ListAdapter(context, newList, presenter, recyclerView, realm);
         recyclerView.setAdapter(adapter);
     }
 

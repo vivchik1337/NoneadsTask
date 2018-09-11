@@ -19,6 +19,7 @@ public interface MainList {
         void onFavoriteClick(Person person, int position);
         void onPDFclick(Person person);
         void onDestroy();
+        void setFavoriteStatus(int position, boolean isFavorite);
     }
 
     interface OnLoadingFinishedListener{

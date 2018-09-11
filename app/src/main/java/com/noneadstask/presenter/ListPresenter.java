@@ -66,7 +66,8 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
         realm.commitTransaction();
     }
 
-    private void setFavoriteStatus(int position, boolean isFavorite) {
+    @Override
+    public void setFavoriteStatus(int position, boolean isFavorite) {
         int resID = 0;
         if (isFavorite)
             resID = R.drawable.ic_star_active;
