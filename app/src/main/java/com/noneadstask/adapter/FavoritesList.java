@@ -13,6 +13,7 @@ public interface FavoritesList {
         void fetchListErrorListener();
         void refreshListFinished(List<Person> newList);
         void refreshListStarted();
+        void removeElement(int position);
     }
 
     interface Presenter {

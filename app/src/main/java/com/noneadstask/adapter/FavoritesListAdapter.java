@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,10 +39,14 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         TextView placeOfWorkTextView;
         @BindView(R.id.positionTextView)
         TextView positionTextView;
-        @BindView(R.id.favorite)
-        ImageView favorite;
+        @BindView(R.id.removeFromFavorite)
+        ImageView removeFromFavorite;
         @BindView(R.id.openPDF)
         ImageView openPDF;
+        @BindView(R.id.btnOpenPDF)
+        FrameLayout btnOpenPDF;
+        @BindView(R.id.btnRemoveFromFavorite)
+        FrameLayout btnRemoveFromFavorite;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
@@ -49,24 +54,27 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
             Log.d(TAG, "ViewHolder created");
         }
 
-        @OnClick(R.id.favorite)
-        public void onFavoriteClick(View view) {
-
+        @OnClick(R.id.btnRemoveFromFavorite)
+        public void btnRemoveFromFavorite(View view) {
             final int position = (Integer) view.getTag();
             final Person item = list.get(position);
+            Log.d(TAG, "Item " + item.getId() + "removed from favorite");
 
             presenter.onRemoveFromFavorite(item, position);
-            Log.d(TAG, "Item " + item.getId() + "added to favorite");
         }
 
-        @OnClick(R.id.openPDF)
-        public void openPDF(View view) {
+        @OnClick(R.id.btnOpenPDF)
+        public void btnOpenPDF(View view) {
             Log.d(TAG, "openPDF");
 
             final int position = (Integer) view.getTag();
             final Person item = list.get(position);
             presenter.onPDFclick(item);
         }
+    }
+
+    public void removeItem() {
+        notifyDataSetChanged();
     }
 
     RecyclerView recyclerView;
@@ -79,14 +87,9 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setFavoriteStatus(int position, int resID) {
-        ((FavoritesListAdapter.PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position)).favorite.setBackground(context.getResources().getDrawable(resID));
-
-    }
-
     @Override
     public FavoritesListAdapter.PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View convertView = mInflater.inflate(R.layout.item_person, parent, false);
+        View convertView = mInflater.inflate(R.layout.item_favorite_person, parent, false);
         FavoritesListAdapter.PersonViewHolder holder = new FavoritesListAdapter.PersonViewHolder(convertView);
 
         return holder;
@@ -117,12 +120,15 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         holder.placeOfWorkTextView.setText(item.getPlaceOfWork());
         holder.positionTextView.setText(item.getPosition());
 
-        if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null"))
+        if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null")) {
             holder.openPDF.setTag(position);
-        else
+            holder.btnOpenPDF.setTag(position);
+        } else {
             holder.openPDF.setVisibility(View.GONE);
-
-        holder.favorite.setTag(position);
+            holder.btnOpenPDF.setVisibility(View.GONE);
+        }
+        holder.removeFromFavorite.setTag(position);
+        holder.btnRemoveFromFavorite.setTag(position);
 
     }
 }

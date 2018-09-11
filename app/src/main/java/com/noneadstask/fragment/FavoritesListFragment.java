@@ -163,6 +163,11 @@ public class FavoritesListFragment extends BaseFragment implements FavoritesList
     }
 
     @Override
+    public void removeElement(int position) {
+        adapter.removeItem(position);
+    }
+
+    @Override
     public void fetchListErrorListener() {
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);

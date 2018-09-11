@@ -85,6 +85,7 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
         //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(person.getLinkPDF()));
         browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(browserIntent);
+        Log.d(TAG, "Opening pdf from URL: " + person.getLinkPDF());
     }
 
     @Override

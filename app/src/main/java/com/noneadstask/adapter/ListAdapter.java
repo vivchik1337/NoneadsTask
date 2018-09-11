@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +43,10 @@ public class ListAdapter extends RecyclerView.Adapter {
         ImageView favorite;
         @BindView(R.id.openPDF)
         ImageView openPDF;
+        @BindView(R.id.btnFavorite)
+        FrameLayout btnFavorite;
+        @BindView(R.id.btnOpenPDF)
+        FrameLayout btnOpenPDF;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
@@ -55,13 +59,13 @@ public class ListAdapter extends RecyclerView.Adapter {
 
             final int position = (Integer) view.getTag();
             final Person item = list.get(position);
+            Log.d(TAG, "Item " + item.getId() + "added to favorite");
 
             presenter.onFavoriteClick(item, position);
-            Log.d(TAG, "Item " + item.getId() + "added to favorite");
         }
 
-        @OnClick(R.id.openPDF)
-        public void openPDF(View view) {
+        @OnClick(R.id.btnOpenPDF)
+        public void btnOpenPDF(View view) {
             Log.d(TAG, "openPDF");
 
             final int position = (Integer) view.getTag();
@@ -95,7 +99,7 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        setItemData(position, (PersonViewHolder)holder);
+        setItemData(position, (PersonViewHolder) holder);
     }
 
 
@@ -117,12 +121,16 @@ public class ListAdapter extends RecyclerView.Adapter {
         holder.placeOfWorkTextView.setText(item.getPlaceOfWork());
         holder.positionTextView.setText(item.getPosition());
 
-        if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null"))
+        if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null")) {
             holder.openPDF.setTag(position);
-        else
+            holder.btnOpenPDF.setTag(position);
+        } else {
             holder.openPDF.setVisibility(View.GONE);
+            holder.btnOpenPDF.setVisibility(View.GONE);
+        }
 
         holder.favorite.setTag(position);
+        holder.btnFavorite.setTag(position);
 
     }
 }
