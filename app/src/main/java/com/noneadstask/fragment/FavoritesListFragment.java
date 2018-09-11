@@ -163,8 +163,8 @@ public class FavoritesListFragment extends BaseFragment implements FavoritesList
     }
 
     @Override
-    public void removeElement(int position) {
-        adapter.removeItem(position);
+    public void removeElement() {
+        adapter.removeItem();
     }
 
     @Override

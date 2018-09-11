@@ -56,7 +56,7 @@ public class FavoritesListPresenter implements FavoritesList.Presenter, Favorite
             //removing person from realm
             for (int i = favoritePersons.size() - 1; i >= 0; i--) {
                 favoritePersons.get(i).removeFromRealm();
-                view.removeElement(position);
+                view.removeElement();
                 //setFavoriteStatus(position, false);
             }
         }
