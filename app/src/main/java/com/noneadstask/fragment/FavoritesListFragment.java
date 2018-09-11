@@ -73,6 +73,7 @@ public class FavoritesListFragment extends BaseFragment implements FavoritesList
             }
         });
 
+        editSearch.setHint(R.string.editSearchFavoritesHint);
         initSwipeRefresh();
 
         if (savedInstanceState != null) {

@@ -26,8 +26,8 @@ public class Person extends RealmObject {
     //constructor without comment
     public Person(String id, String firstname, String lastname, String placeOfWork, String position, String linkPDF) {
         this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstname = firstname.toUpperCase();
+        this.lastname = lastname.toUpperCase();
         this.placeOfWork = placeOfWork;
         this.position = position;
         this.linkPDF = linkPDF;
@@ -37,8 +37,8 @@ public class Person extends RealmObject {
     public Person(String id, String firstname, String lastname, String placeOfWork, String position,
                   String linkPDF, String comment) {
         this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstname = firstname.toUpperCase();
+        this.lastname = lastname.toUpperCase();
         this.placeOfWork = placeOfWork;
         this.position = position;
         this.linkPDF = linkPDF;

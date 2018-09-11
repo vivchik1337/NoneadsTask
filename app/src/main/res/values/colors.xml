@@ -12,7 +12,8 @@
     <color name="DefBrighColor">#3be5ff</color>
 
     <!--Text colors -->
-    <color name="HintTextColor">#D8D8D8</color>
+    <color name="HintTextColor">#a7a5a5</color>
+    <color name="CommentTextColor">#D8D8D8</color>
     <color name="DefTextColor">#7c8389</color>
     <color name="SmallTextColor">@color/DefTextColor</color>
     <color name="SubTitleTextColor">@color/TitleTextColor</color>

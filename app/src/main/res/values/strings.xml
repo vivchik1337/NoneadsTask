@@ -17,6 +17,6 @@
 
     <!-- Favorites List Fragment -->
     <string name="editCommentHint">Your comment</string>
-
+    <string name="editSearchFavoritesHint">Search by lastname</string>
 
 </resources>

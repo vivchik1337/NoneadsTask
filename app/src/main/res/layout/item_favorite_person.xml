@@ -148,7 +148,8 @@
             android:paddingRight="10dp"
             android:paddingTop="6dp"
             android:singleLine="true"
-            android:textColor="@color/HintTextColor" />
+            android:textColor="@color/CommentTextColor"
+            android:textColorHint="@color/HintTextColor" />
     </LinearLayout>
 
     <View

@@ -2,14 +2,9 @@ package com.noneadstask.model;
 
 import android.content.Context;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.noneadstask.adapter.FavoritesList;
-import com.noneadstask.adapter.MainList;
-import com.noneadstask.api.ListRequest;
-import com.noneadstask.util.Log;
-import com.noneadstask.util.Toaster;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -29,8 +24,9 @@ public class FavoritesRepository implements FavoritesList.Repository {
                                  FavoritesList.OnLoadingFinishedListener onLoadingFinishedListener) {
         this.onLoadingFinishedListener = onLoadingFinishedListener;
         this.context = context;
-
-        return realm.allObjects(Person.class);
+        List<Person> list = new ArrayList<>();
+        list.addAll(realm.where(Person.class).contains("lastname", query.toUpperCase()).findAll());
+        return list;
     }
 
 }
