@@ -11,7 +11,7 @@ public interface MainList {
         void fetchListErrorListener();
         void refreshListFinished(List<Person> newList);
         void refreshListStarted();
-        void setFavoriteStatus(int position, int resID);
+        void setFavoriteStatus(int position, boolean isFavorite);
     }
 
     interface Presenter {
@@ -20,6 +20,7 @@ public interface MainList {
         void onPDFclick(Person person);
         void onDestroy();
         void setFavoriteStatus(int position, boolean isFavorite);
+        void saveComment(final String comment, final String id);
     }
 
     interface OnLoadingFinishedListener{
@@ -29,7 +30,5 @@ public interface MainList {
     interface Repository {
         String loadList(String query, Context context, OnLoadingFinishedListener onLoadingFinishedListener);
     }
-    /*interface Addapter{
-        void changeFavoriteStatus(boolean isFavorite);
-    }*/
+
 }

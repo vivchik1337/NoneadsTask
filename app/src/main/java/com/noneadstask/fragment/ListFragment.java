@@ -99,8 +99,8 @@ public class ListFragment extends BaseFragment implements MainList.UIview,
     }
 
     @Override
-    public void setFavoriteStatus(int position, int resID) {
-        adapter.setFavoriteStatus(position, resID);
+    public void setFavoriteStatus(int position, boolean isFavorite) {
+        adapter.setFavoriteStatus(position, isFavorite);
     }
 
     private ListAdapter adapter;

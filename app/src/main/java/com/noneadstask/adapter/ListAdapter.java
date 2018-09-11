@@ -3,9 +3,13 @@ package com.noneadstask.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,11 +52,25 @@ public class ListAdapter extends RecyclerView.Adapter {
         FrameLayout btnFavorite;
         @BindView(R.id.btnOpenPDF)
         FrameLayout btnOpenPDF;
+        @BindView(R.id.comment)
+        EditText comment;
 
-        public PersonViewHolder(View itemView) {
+        public PersonViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             Log.d(TAG, "ViewHolder created");
+
+            comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        Person person = list.get((int) itemView.findViewById(R.id.removeFromFavorite).getTag());
+                        presenter.saveComment(comment.getText().toString().trim(), person.getId());
+                        hideKeyboard(comment);
+                    }
+                    return false;
+                }
+            });
         }
 
         @OnClick(R.id.favorite)
@@ -89,12 +107,17 @@ public class ListAdapter extends RecyclerView.Adapter {
         favoritesList = realm.where(Person.class).findAll();
     }
 
-    public void setFavoriteStatus(int position, int resID) {
+    public void setFavoriteStatus(int position, boolean isFavorite) {
         PersonViewHolder holder = (PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
-        if (null != holder)
-            holder.favorite.setBackground(context.getResources().getDrawable(resID));
-        //((PersonViewHolder) recyclerView.findViewHolderForAdapterPosition(position)).favorite.setBackground(context.getResources().getDrawable(resID));
 
+        if (null != holder)
+            if (isFavorite) {
+                holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+                holder.comment.setVisibility(View.VISIBLE);
+            } else {
+                holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star));
+                holder.comment.setVisibility(View.GONE);
+            }
     }
 
     @Override
@@ -140,12 +163,21 @@ public class ListAdapter extends RecyclerView.Adapter {
         for (Person person : favoritesList) {
             if (person.getId().equalsIgnoreCase(item.getId())) {
                 holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
+                holder.comment.setVisibility(View.VISIBLE);
+                holder.comment.setText(person.getComment());
             }
-
         }
-
         holder.favorite.setTag(position);
         holder.btnFavorite.setTag(position);
+    }
 
+    public void hideKeyboard(EditText editText) {
+        try {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        } catch (Exception e) {
+            com.noneadstask.util.Log.d(TAG, e.getLocalizedMessage());
+        }
     }
 }
+

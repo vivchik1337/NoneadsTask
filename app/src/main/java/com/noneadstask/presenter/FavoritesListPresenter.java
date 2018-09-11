@@ -76,8 +76,17 @@ public class FavoritesListPresenter implements FavoritesList.Presenter, Favorite
     }
 
     @Override
-    public void onDestroy() {
-        realm.close();
+    public void saveComment(final String comment, final String id) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Person person = realm.where(Person.class).equalTo("id", id).findFirst();
+                if (person == null) {
+                    return;
+                }
+                person.setComment(comment);
+            }
+        });
     }
 
     @Override
@@ -88,4 +97,10 @@ public class FavoritesListPresenter implements FavoritesList.Presenter, Favorite
             view.fetchListErrorListener();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
+    }
+
 }

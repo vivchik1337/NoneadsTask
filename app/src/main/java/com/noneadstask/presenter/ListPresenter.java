@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.noneadstask.R;
 import com.noneadstask.adapter.MainList;
 import com.noneadstask.model.Person;
 import com.noneadstask.model.PersonRepository;
@@ -68,13 +67,7 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
 
     @Override
     public void setFavoriteStatus(int position, boolean isFavorite) {
-        int resID = 0;
-        if (isFavorite)
-            resID = R.drawable.ic_star_active;
-        else
-            resID = R.drawable.ic_star;
-        view.setFavoriteStatus(position, resID);
-
+        view.setFavoriteStatus(position, isFavorite);
     }
 
     @Override
@@ -90,8 +83,17 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
     }
 
     @Override
-    public void onDestroy() {
-        realm.close();
+    public void saveComment(final String comment, final String id) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Person person = realm.where(Person.class).equalTo("id", id).findFirst();
+                if (person == null) {
+                    return;
+                }
+                person.setComment(comment);
+            }
+        });
     }
 
     @Override
@@ -101,5 +103,10 @@ public class ListPresenter implements MainList.Presenter, MainList.OnLoadingFini
         } else {
             view.fetchListErrorListener();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
     }
 }

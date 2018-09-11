@@ -10,121 +10,146 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_person_item"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/nameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center"
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:gravity="left|top"
-                    android:singleLine="true"
-                    android:text="Иванов Иван Иванович"
-                    android:textColor="@color/HintTextColor"
-                    android:textStyle="bold" />
-
+                android:layout_marginLeft="7dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/nameTextView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Место работы: "
+                        android:layout_gravity="left|center"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="left|top"
+                        android:singleLine="true"
+                        android:text="Иванов Иван Иванович"
                         android:textColor="@color/HintTextColor"
-                        android:textSize="13dp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/placeOfWorkTextView"
-                        android:layout_width="0dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="ПАТ Рошен"
-                        android:textColor="@color/DefTextColor"
-                        android:textSize="11dp" />
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Место работы: "
+                            android:textColor="@color/HintTextColor"
+                            android:textSize="13dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/placeOfWorkTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="ПАТ Рошен"
+                            android:textColor="@color/DefTextColor"
+                            android:textSize="11dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Должность: "
+                            android:textColor="@color/HintTextColor"
+                            android:textSize="13dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/positionTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Менеджер отдела кадров"
+                            android:textColor="@color/DefTextColor"
+                            android:textSize="11dp" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Должность: "
-                        android:textColor="@color/HintTextColor"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
+                    <FrameLayout
+                        android:id="@+id/btnFavorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/positionTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Менеджер отдела кадров"
-                        android:textColor="@color/DefTextColor"
-                        android:textSize="11dp" />
+                        <ImageButton
+                            android:id="@+id/favorite"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_star" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/btnOpenPDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ImageButton
+                            android:id="@+id/openPDF"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_pdf"
+                            android:tint="@color/HintTextColor" />
+                    </FrameLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/btnFavorite"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <ImageButton
-                        android:id="@+id/favorite"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_star" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/btnOpenPDF"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <ImageButton
-                        android:id="@+id/openPDF"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_pdf"
-                        android:tint="@color/HintTextColor" />
-                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/comment"
+            style="@style/DefText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_comment"
+            android:gravity="left"
+            android:hint="@string/editCommentHint"
+            android:imeOptions="actionSearch"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:singleLine="true"
+            android:textColor="@color/HintTextColor"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

@@ -3,9 +3,13 @@ package com.noneadstask.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,11 +51,25 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         FrameLayout btnOpenPDF;
         @BindView(R.id.btnRemoveFromFavorite)
         FrameLayout btnRemoveFromFavorite;
+        @BindView(R.id.comment)
+        EditText comment;
 
-        public PersonViewHolder(View itemView) {
+        public PersonViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             Log.d(TAG, "ViewHolder created");
+
+            comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        Person person = list.get((int)itemView.findViewById(R.id.removeFromFavorite).getTag());
+                        presenter.saveComment(comment.getText().toString().trim(), person.getId());
+                        hideKeyboard(comment);
+                    }
+                    return false;
+                }
+            });
         }
 
         @OnClick(R.id.btnRemoveFromFavorite)
@@ -119,6 +137,7 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         holder.nameTextView.setText(item.getLastname() + " " + item.getFirstname());
         holder.placeOfWorkTextView.setText(item.getPlaceOfWork());
         holder.positionTextView.setText(item.getPosition());
+        holder.comment.setText(item.getComment());
 
         if (null != item.getLinkPDF() && !item.getLinkPDF().equals("") && !item.getLinkPDF().equalsIgnoreCase("null")) {
             holder.openPDF.setTag(position);
@@ -129,6 +148,14 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
         }
         holder.removeFromFavorite.setTag(position);
         holder.btnRemoveFromFavorite.setTag(position);
+    }
 
+    public void hideKeyboard(EditText editText) {
+        try {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        } catch (Exception e) {
+            com.noneadstask.util.Log.d(TAG, e.getLocalizedMessage());
+        }
     }
 }

@@ -20,6 +20,7 @@ public interface FavoritesList {
         void refreshList(String query);
         void onRemoveFromFavorite(Person person, int position);
         void onPDFclick(Person person);
+        void saveComment(String comment, final String id);
         void onDestroy();
     }
 
