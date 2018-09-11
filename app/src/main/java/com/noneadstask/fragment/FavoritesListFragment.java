@@ -15,10 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.noneadstask.R;
-import com.noneadstask.adapter.FavoritesList;
 import com.noneadstask.adapter.FavoritesListAdapter;
 import com.noneadstask.api.ApiSingleton;
 import com.noneadstask.api.ListRequest;
+import com.noneadstask.interfaces.FavoritesList;
 import com.noneadstask.model.Person;
 import com.noneadstask.presenter.FavoritesListPresenter;
 

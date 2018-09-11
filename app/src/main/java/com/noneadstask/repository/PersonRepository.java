@@ -1,11 +1,12 @@
-package com.noneadstask.model;
+package com.noneadstask.repository;
 
 import android.content.Context;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.noneadstask.adapter.MainList;
 import com.noneadstask.api.ListRequest;
+import com.noneadstask.interfaces.MainList;
+import com.noneadstask.model.Person;
 import com.noneadstask.util.Log;
 import com.noneadstask.util.Toaster;
 

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.noneadstask.adapter.FavoritesList;
-import com.noneadstask.model.FavoritesRepository;
+import com.noneadstask.interfaces.FavoritesList;
 import com.noneadstask.model.Person;
+import com.noneadstask.repository.FavoritesRepository;
 
 import java.util.List;
 

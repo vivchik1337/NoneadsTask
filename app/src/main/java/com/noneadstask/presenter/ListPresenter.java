@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.noneadstask.adapter.MainList;
+import com.noneadstask.interfaces.MainList;
 import com.noneadstask.model.Person;
-import com.noneadstask.model.PersonRepository;
+import com.noneadstask.repository.PersonRepository;
 
 import java.util.List;
 

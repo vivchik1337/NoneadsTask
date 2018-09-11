@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.noneadstask.fragment.BaseFragment;
 import com.noneadstask.fragment.FavoritesListFragment;

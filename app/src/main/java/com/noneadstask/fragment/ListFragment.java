@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.noneadstask.R;
 import com.noneadstask.adapter.ListAdapter;
-import com.noneadstask.adapter.MainList;
 import com.noneadstask.api.ApiSingleton;
 import com.noneadstask.api.ListRequest;
+import com.noneadstask.interfaces.MainList;
 import com.noneadstask.model.Person;
 import com.noneadstask.presenter.ListPresenter;
 

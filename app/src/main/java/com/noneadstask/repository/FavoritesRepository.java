@@ -1,8 +1,9 @@
-package com.noneadstask.model;
+package com.noneadstask.repository;
 
 import android.content.Context;
 
-import com.noneadstask.adapter.FavoritesList;
+import com.noneadstask.interfaces.FavoritesList;
+import com.noneadstask.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;

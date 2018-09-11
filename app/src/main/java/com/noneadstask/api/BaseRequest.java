@@ -12,7 +12,6 @@ import com.noneadstask.R;
 import com.noneadstask.util.Log;
 import com.noneadstask.util.Toaster;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package com.noneadstask.adapter;
+package com.noneadstask.interfaces;
 
 import android.content.Context;
 
@@ -11,20 +11,27 @@ import io.realm.Realm;
 public interface FavoritesList {
     interface UIview {
         void fetchListErrorListener();
+
         void refreshListFinished(List<Person> newList);
+
         void refreshListStarted();
+
         void removeElement();
     }
 
     interface Presenter {
         void refreshList(String query);
+
         void onRemoveFromFavorite(Person person, int position);
+
         void onPDFclick(Person person);
+
         void saveComment(String comment, final String id);
+
         void onDestroy();
     }
 
-    interface OnLoadingFinishedListener{
+    interface OnLoadingFinishedListener {
         void onLodingFinished(List<Person> list);
     }
 
