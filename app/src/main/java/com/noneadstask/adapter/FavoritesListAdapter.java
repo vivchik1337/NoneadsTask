@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class FavoritesListAdapter extends RecyclerView.Adapter {
 
@@ -92,6 +93,7 @@ public class FavoritesListAdapter extends RecyclerView.Adapter {
     }
 
     public void removeItem() {
+        list = Realm.getInstance(context).allObjects(Person.class);
         notifyDataSetChanged();
     }
 
