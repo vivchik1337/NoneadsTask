@@ -64,7 +64,7 @@ public class ListAdapter extends RecyclerView.Adapter {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        Person person = list.get((int) itemView.findViewById(R.id.removeFromFavorite).getTag());
+                        Person person = list.get((int) itemView.findViewById(R.id.favorite).getTag());
                         presenter.saveComment(comment.getText().toString().trim(), person.getId());
                         hideKeyboard(comment);
                     }
