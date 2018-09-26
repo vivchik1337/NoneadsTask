@@ -165,6 +165,12 @@ public class ListAdapter extends RecyclerView.Adapter {
                 holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star_active));
                 holder.comment.setVisibility(View.VISIBLE);
                 holder.comment.setText(person.getComment());
+                break;
+            }
+            else{
+                holder.favorite.setBackground(context.getResources().getDrawable(R.drawable.ic_star));
+                holder.comment.setVisibility(View.GONE);
+                holder.comment.setText("");
             }
         }
         holder.favorite.setTag(position);
